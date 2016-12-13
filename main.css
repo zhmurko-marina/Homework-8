@@ -1,0 +1,64 @@
+@charset "UTF-8";
+.new-task .l3, .new-task .l9 {
+  padding: 0; }
+
+.valign-wrapper::after {
+  display: none; }
+
+ul {
+  z-index: 1;
+  padding: 30px 0 70px !important; }
+  ul li {
+    list-style: none;
+    margin: 0 auto !important;
+    display: flex;
+    background-color: #FAFAFA;
+    justify-content: space-between;
+    border: 1px solid #BDBDBD;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative; }
+  ul li p {
+    margin: 0;
+    font-size: 20px;
+    padding: 20px 10px 20px 40px; }
+  ul li:hover {
+    background: #EEEEEE; }
+  ul p.checked {
+    text-decoration: line-through;
+    position: relative; }
+  ul p.checked::before {
+    content: "✓";
+    font-size: 25px;
+    width: 25px;
+    height: 45px;
+    position: absolute;
+    left: 10px;
+    top: 18px;
+    color: #1B5E20; }
+  ul .delete-task {
+    display: none; }
+
+.edit {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  overflow: hidden; }
+  .edit div {
+    text-align: center;
+    width: 400px;
+    margin: 50px auto;
+    padding: 100px;
+    background: #fff;
+    border-radius: 20px; }
+
+.button-edit {
+  position: absolute;
+  right: 72px; }
+
+/*# sourceMappingURL=main.css.map */
