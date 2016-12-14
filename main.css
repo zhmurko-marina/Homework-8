@@ -41,17 +41,17 @@ ul {
 
 .edit {
   z-index: 100;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.7);
-  overflow: hidden; }
+  overflow: auto; }
   .edit div {
     text-align: center;
-    width: 400px;
+    width: 550px;
     margin: 50px auto;
     padding: 100px;
     background: #fff;

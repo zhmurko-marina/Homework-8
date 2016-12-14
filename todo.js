@@ -27,6 +27,7 @@ $(document).ready(function () {
             tasks.push(newToDo);
         }
         localStorage.setItem("todo", JSON.stringify(tasks));
+        $("#todoInput").val('');
         redraw();
     });
 
@@ -88,8 +89,8 @@ $(document).ready(function () {
         var id = $(this).parent().attr('id');
         $('body').append("<div class='edit'><div id='edit'>" +
             "<input id='editInput'>" +
-            "<button class='btn button-save'>save</button>" +
-            "<button class='btn button-cancel'>cancel</button>" +
+            "<button class='btn button-save blue lighten-1'>save</button>" +
+            "<button class='btn button-cancel pink darken-1'>cancel</button>" +
             "</div></div>");
 
         $('#editInput').val($(this).siblings('p')[0].innerHTML);
@@ -111,7 +112,22 @@ $(document).ready(function () {
 
     });
     $mainList.sortable({
-        revert: true
+
+        connectWith: $("#todoList"),
+        update: function(event, ui) {
+            var tasks = getTasks();
+            var order = $(this).sortable('toArray');
+
+            for(var i=0; i<$("#todoList li").length; i++) {
+                tasks[i].taskValue = $('#todoList li#'+order[i]+' p').text();
+                tasks[i].isChecked = $('#todoList li#'+order[i]+' p').hasClass('checked') ? true : false;
+
+
+            }
+            localStorage.setItem('todo', JSON.stringify(tasks));
+            console.log(tasks);
+            redraw();
+        }
     });
 
     function countTasks() {
