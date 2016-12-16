@@ -42,7 +42,6 @@ $(document).ready(function () {
                     "<button class='btn button-delete pink darken-1'>✕</button></li>");
             }
         }
-        $('#listContainer').append($('#todoList'));
         countTasks();
     }
 
@@ -54,11 +53,11 @@ $(document).ready(function () {
 
     $mainList.on('click', 'li p', function (e) {
         $(this).toggleClass('checked');
-        for(var i=0; i<tasks.length; i++){
-            if(tasks[i].taskValue == $(this).text() && $(this).hasClass('checked') ){
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].taskValue == $(this).text() && $(this).hasClass('checked')) {
                 tasks[i].isChecked = true;
             }
-            else if(tasks[i].taskValue == $(this).text()){
+            else if (tasks[i].taskValue == $(this).text()) {
                 tasks[i].isChecked = false;
             }
         }
@@ -67,10 +66,13 @@ $(document).ready(function () {
     });
 
     $mainList.on('click', '.button-delete', function (e) {
-        e = $(e.target).parent();
-        tasks.splice(e.getAttribute('id'), 1);
-        $(this).parent().fadeOut('slow');
+        tasks.forEach(function (item, i) {
+            if (item.taskValue == $(e.target).siblings('p').text()) {
+                tasks.splice(i, 1);
+            }
+        });
         save();
+        $(this).parent().fadeOut('slow');
     });
 
     $mainList.on('click', '.button-edit', function (e) {
@@ -97,6 +99,7 @@ $(document).ready(function () {
         });
 
     });
+
     $mainList.sortable({
         connectWith: $('#todoList'),
         update: function (event, ui) {
@@ -104,9 +107,8 @@ $(document).ready(function () {
             for (var i = 0; i < $('#todoList li').length; i++) {
                 tasks[i].taskValue = $('#todoList li#' + order[i] + ' p').text();
                 tasks[i].isChecked = $('#todoList li#' + order[i] + ' p').hasClass('checked') ? true : false;
-                save();
             }
-
+            save();
         }
     });
 
