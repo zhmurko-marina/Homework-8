@@ -7,28 +7,30 @@
     <link rel="stylesheet" href="main.css">
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 </head>
 <body>
 <div class="row">
-    <div class="col l6 offset-l3">
+    <div class="col l6 offset-l3 m10 offset-m1 s12">
         <div class="information row">
-            <p class="col l2">Done: <span id="countOfDone"></span></p>
-            <p class="col l2">Not done: <span id="countOfNotDone"></span></p>
-            <p class="col l2">All tasks: <span id="countOfAll"></span></p>
+            <p class="col m3">Done: <span id="countOfDone"></span></p>
+            <p class="col m3">Not done: <span id="countOfNotDone"></span></p>
+            <p class="col m3">All tasks: <span id="countOfAll"></span></p>
         </div>
         <h1 class="center">To Do List</h1>
         <div class="new-task row">
-            <div class="col l8 offset-l1 input-field inline">
+            <div class="col s8 offset-l1 input-field inline">
                 <input type="text" id="todoInput" maxlength="100">
             </div>
-            <div class="col l3">
+            <div class="col s3">
                 <button class="waves-effect waves-light btn blue darken-1" type="button" id="addTask">Add</button>
             </div>
         </div>
 
         <div class="row">
-            <div class="col l12">
+            <div class="col s12" id="listContainer">
                 <ul id="todoList">
+
                 </ul>
             </div>
         </div>
