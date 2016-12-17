@@ -117,7 +117,7 @@ $(document).ready(function () {
     });
 
     function countTasks() {
-        $('#countOfDone').text($('li').length);
+        $('#countOfDone').text($('.checked').length);
         $('#countOfAll').text($('li').length);
         $('#countOfNotDone').text($('li').length - $('.checked').length);
     }
