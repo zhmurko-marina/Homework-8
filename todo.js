@@ -3,10 +3,11 @@
  */
 $(document).ready(function () {
 
-    var $mainList = $('#todoList');
-    var tasks;
-    var tasksJson = localStorage.getItem('todo');
-    tasks = tasksJson != null ? JSON.parse(tasksJson) : [];
+    var $mainList = $('#todoList'),
+        tasksJson = localStorage.getItem('todo'),
+        tasks = tasksJson ? JSON.parse(tasksJson) : [];
+
+    console.log(tasks);
 
     function Task(taskValue, isChecked) {
         this.taskValue = taskValue;
@@ -18,28 +19,29 @@ $(document).ready(function () {
         if ($item) {
             var newToDo = new Task($item, false);
             tasks.push(newToDo);
-            $('#todoList').append("<li class='row valign-wrapper' id=" + (tasks.length - 1) + ">" +
-                "<p class='valign'>" + $item + "</p>" +
-                "<button class='btn button-edit blue lighten-1'>edit</button>" +
-                "<button class='btn button-delete pink darken-1'>✕</button></li>");
+            $('#todoList').append('<li class="row valign-wrapper" id=' + (tasks.length - 1) + '>' +
+                '<p class="valign">' + $item + '</p>' +
+                '<button class="btn button-edit blue lighten-1">edit</button>' +
+                '<button class="btn button-delete pink darken-1">✕</button></li>');
         }
         save();
         $('#todoInput').val('');
+        countTasks();
     });
 
     function redraw() {
         for (var i = 0; i < tasks.length; i++) {
             if (tasks[i].isChecked) {
-                $('#todoList').append("<li class='row valign-wrapper' id=" + i + ">" +
-                    "<p class='valign checked'>" + tasks[i].taskValue + "</p>" +
-                    "<button class='btn button-edit blue lighten-1'>edit</button>" +
-                    "<button class='btn button-delete pink darken-1'>✕</button></li>");
+                $('#todoList').append('<li class="row valign-wrapper" id=' + i + '>' +
+                    '<p class="valign checked">' + tasks[i].taskValue + '</p>' +
+                    '<button class="btn button-edit blue lighten-1">edit</button>' +
+                    '<button class="btn button-delete pink darken-1">✕</button></li>');
             }
             else {
-                $('#todoList').append("<li class='row valign-wrapper' id=" + i + ">" +
-                    "<p class='valign'>" + tasks[i].taskValue + "</p>" +
-                    "<button class='btn button-edit blue lighten-1'>edit</button>" +
-                    "<button class='btn button-delete pink darken-1'>✕</button></li>");
+                $('#todoList').append('<li class="row valign-wrapper" id=' + i + '>' +
+                    '<p class="valign">' + tasks[i].taskValue + '</p>' +
+                    '<button class="btn button-edit blue lighten-1">edit</button>' +
+                    '<button class="btn button-delete pink darken-1">✕</button></li>');
             }
         }
         countTasks();
@@ -69,19 +71,21 @@ $(document).ready(function () {
         tasks.forEach(function (item, i) {
             if (item.taskValue == $(e.target).siblings('p').text()) {
                 tasks.splice(i, 1);
+                save();
+                console.log(tasks);
             }
         });
-        save();
+
         $(this).parent().fadeOut('slow');
     });
 
     $mainList.on('click', '.button-edit', function (e) {
         var id = $(this).parent().attr('id');
-        $('body').append("<div class='edit'><div id='edit'>" +
-            "<input id='editInput'>" +
-            "<button class='btn button-save blue lighten-1'>save</button>" +
-            "<button class='btn button-cancel pink darken-1'>cancel</button>" +
-            "</div></div>");
+        $('body').append('<div class="edit"><div id="edit">' +
+            '<input id="editInput">' +
+            '<button class="btn button-save blue lighten-1">save</button>' +
+            '<button class="btn button-cancel pink darken-1">cancel</button>' +
+            '</div></div>');
 
         $('#editInput').val($(this).siblings('p')[0].innerHTML);
 
@@ -113,11 +117,9 @@ $(document).ready(function () {
     });
 
     function countTasks() {
-        var $allTasks = $('li');
-        var $checkedTasks = $('.checked');
-        $('#countOfDone').text($checkedTasks.length);
-        $('#countOfAll').text($allTasks.length);
-        $('#countOfNotDone').text($allTasks.length - $checkedTasks.length);
+        $('#countOfDone').text($('li').length);
+        $('#countOfAll').text($('li').length);
+        $('#countOfNotDone').text($('li').length - $('.checked').length);
     }
 
     function save() {
